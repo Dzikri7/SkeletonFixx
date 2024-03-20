@@ -26,11 +26,15 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     .then(data => {
         // Handle respons dari server (misalnya, tampilkan pesan sukses)
         console.log('Pendaftaran berhasil:', data);
+        pesan.textContent = "SignUp Success. Please Login to Your Account.";
+        pesan.style.color = "green";
         // Redirect ke halaman login
         // window.location.href = '../theme/signin.html'; // Ganti dengan nama file halaman login yang sesuai
     })
     .catch(error => {
         // Handle kesalahan (misalnya, tampilkan pesan kesalahan)
         console.error('Pendaftaran error:', error);
+        pesan.textContent = "SignUp Failed. Please Check Your Username and Password.";
+        pesan.style.color = "red";
     });
 });

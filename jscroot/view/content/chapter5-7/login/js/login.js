@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.href = "../";
             } else {
                 // Pengolahan respons jika login gagal
-                message.textContent = "Login failed. Please check your username and password.";
+                message.textContent = "Login Failed. Please Check Your Username and Password.";
                 message.style.color = "red";
             }
         })
