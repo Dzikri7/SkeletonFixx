@@ -16,6 +16,11 @@ externalDocs:
 servers:
   - url: https://asia-southeast2-vivid-vent-401501.cloudfunctions.net
 tags:
+  - name: User
+    description: SignIn dan SignUp
+    externalDocs:
+      description: Deskripsi dan Kode Program
+      url: https://pkg.go.dev/github.com/Dzikri7/backendsuperimbagelo
   - name: Create GIS
     description: Data Geo Spasial
     externalDocs:
@@ -26,8 +31,7 @@ tags:
     externalDocs:
       description: Deskripsi dan Kode Program
       url: https://pkg.go.dev/github.com/Dzikri7/backendsuperimbagelo
-  - name: user
-    description: Get Token and Authorize
+
 paths:
   /function-Token:  # Penambahan endpoint Create GIS
     post:
@@ -47,6 +51,64 @@ paths:
           description: Data successfully created
         '400':
           description: Invalid input or request body
+      security:
+        - SECRET:
+            - write:apiKey
+            - read:SECRET
+  /signin: 
+    post:
+      tags:
+        - User
+      summary: SignIn to Your Account
+      description: Login Account
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successfull Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          description: Failed Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gagal'
+      security:
+        - SECRET:
+            - write:apiKey
+            - read:SECRET
+  /signupfix: 
+    post:
+      tags:
+        - User
+      summary: SignUp to Your Account
+      description: SignUp Account
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successfull Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUp'
+        '400':
+          description: Failed Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gagal'
       security:
         - SECRET:
             - write:apiKey
@@ -78,6 +140,23 @@ components:
                 - type: array
                   items:
                     - [125.6, 10.1]
+    User:
+      example:
+        username: "Dzikri7"
+        password: "Dzikri718"
+    Token:
+      example:
+        status: true
+        message: "Berhasil Login"
+        token: "v4.public xxxx"
+    SignUp:
+      example:
+        status: true
+        message: "Berhasil Input data"
+    Gagal:
+      example:
+        status: false
+        message: "Check Your Username or Password"
   securitySchemes:
     SECRET:
       type: apiKey
